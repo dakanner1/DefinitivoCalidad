@@ -729,7 +729,7 @@ public class UsuarioServlet {
   
   @RequestMapping(value="/mostrarNotificaciones", method = RequestMethod.GET)
   public String mostrarNotificaciones(HttpServletRequest request, Model model) throws Exception  {
-	   Usuario usuario=null;
+	   Usuario usuario=null;//volemos
 	   usuario=(Usuario) request.getSession().getAttribute(usuario_conect);
 	   model.addAttribute("notificaciones", utilidades.mostrarNotificaciones(usuario));
 	   return "usuario/vistaAmigos";
