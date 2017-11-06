@@ -16,23 +16,17 @@ import com.intravita.proyectointranet.modelo.Usuario;
 import com.intravita.proyectointranet.persistencia.AdministradorDAOImpl;
 import com.intravita.proyectointranet.persistencia.PublicacionDAOImpl;
 import com.intravita.proyectointranet.persistencia.UsuarioDAOImpl;
-import com.intravita.proyectointranet.utlidades.utilidades;
+import com.intravita.proyectointranet.utlidades.*;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.codec.digest.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
-
-
-
-
-@Controller
-@RequestMapping({"/usuario","/"})
 
 
 /**
@@ -42,8 +36,15 @@ import org.springframework.ui.Model;
  * @since sprint 1
  */
 
+@Controller
+@RequestMapping({"/usuario","/"})
+
 public class UsuarioServlet {
- @Autowired
+	/**
+	 * @class UsuarioServlet
+	 * 
+	 */
+@Autowired
  UsuarioDAOImpl usuarioDao;
  AdministradorDAOImpl administradorDao=new AdministradorDAOImpl();
  PublicacionDAOImpl publicacionDao=new PublicacionDAOImpl();
@@ -269,7 +270,7 @@ public class UsuarioServlet {
  public String borrar(HttpServletRequest request, Model model) throws Exception  {
   String cadenaUrl=usuarioServ;
   String nombre=request.getParameter("txtNombre");
-  Usuario usuario;
+  Usuario usuario=null;
   Administrador administrador= (Administrador) request.getSession().getAttribute(admin_conect);
   if(nombre.equals(administrador.getNombre())) {
 	  model.addAttribute(alert, "No puedes realizar acciones sobre ti");
@@ -327,7 +328,7 @@ public class UsuarioServlet {
  public String degradar(HttpServletRequest request, Model model) throws Exception  {
   String cadenaUrl=usuarioServ;
   String nombre=request.getParameter("txtNombre");
-  Administrador admin;
+  Administrador admin=null;
   Administrador administrador= (Administrador) request.getSession().getAttribute(admin_conect);
   if(nombre.equals(administrador.getNombre())) {
 	  model.addAttribute(alert, "No puedes realizar acciones sobre ti");
@@ -398,7 +399,7 @@ public class UsuarioServlet {
  @RequestMapping(value="/crearPublicacion", method = RequestMethod.POST)
  public String crearPublicacion(HttpServletRequest request, Model model) throws Exception  {
   String cadenaUrl=usuarioServ;
-  Usuario usuario;
+  Usuario usuario=null;
   usuario=(Usuario) request.getSession().getAttribute(usuario_conect);
   
   
@@ -431,7 +432,7 @@ public class UsuarioServlet {
  @RequestMapping(value="/crearPublicacionPrivada", method = RequestMethod.POST)
  public String crearPublicacionPrivada(HttpServletRequest request, Model model) throws Exception  {
   String cadenaUrl=usuarioServ;
-  Usuario usuario;
+  Usuario usuario=null;
   usuario=(Usuario) request.getSession().getAttribute("usuarioConectado");
   
   
@@ -469,7 +470,7 @@ public class UsuarioServlet {
  @RequestMapping(value="/listarPublicacion", method = RequestMethod.POST)
  public String listarPublicacion(HttpServletRequest request, Model model) throws Exception  {
   String cadenaUrl=usuarioServ;
-  Usuario usuario;
+  Usuario usuario=null;
   usuario=(Usuario) request.getSession().getAttribute(usuario_conect);
   
   ArrayList<Publicacion> publicas=publicacionDao.selectPublicas(usuario);
@@ -649,7 +650,7 @@ public class UsuarioServlet {
   @RequestMapping(value="/buscarAmigos", method = RequestMethod.POST)
   public String buscarAmigos(HttpServletRequest request, Model model) throws Exception  {
 	   String filtro=request.getParameter("txtUsuarioNombre");
-	   Usuario usuario;
+	   Usuario usuario=null;
 	   usuario=(Usuario) request.getSession().getAttribute(usuario_conect);
 	   model.addAttribute("amigos", utilidades.buscadorUsuario(usuario, filtro));
 	   return "usuario/vistaAmigos";
@@ -663,7 +664,7 @@ public class UsuarioServlet {
   @RequestMapping(value="/enviarSolicitud", method = RequestMethod.POST)
   public String enviarSolicitud(HttpServletRequest request, Model model) throws Exception  {
 	   String receptor=request.getParameter("txtNombreEnviar");
-	   Usuario usuario;
+	   Usuario usuario=null;
 	   usuario=(Usuario) request.getSession().getAttribute(usuario_conect);
 	   try {
 		   utilidades.enviarSolicitud(usuario, new Usuario(receptor));
@@ -681,7 +682,7 @@ public class UsuarioServlet {
   @RequestMapping(value="/eliminarAmigo", method = RequestMethod.POST)
   public String eliminarAmigo(HttpServletRequest request, Model model) throws Exception  {
 	   String receptor=request.getParameter("txtNombreEliminar");
-	   Usuario usuario;
+	   Usuario usuario=null;
 	   usuario=(Usuario) request.getSession().getAttribute(usuario_conect);
 	   try {
 		   utilidades.borrarAmistad(usuario, new Usuario(receptor));
@@ -699,7 +700,7 @@ public class UsuarioServlet {
   @RequestMapping(value="/aceptarSolicitud", method = RequestMethod.POST)
   public String aceptarSolicitud(HttpServletRequest request, Model model) throws Exception  {
 	   String emisor=request.getParameter("txtNombre");
-	   Usuario usuario;
+	   Usuario usuario=null;
 	   usuario=(Usuario) request.getSession().getAttribute(usuario_conect);
 	   try {
 		   utilidades.aceptarSolicitud(new Usuario(emisor), usuario);
@@ -716,7 +717,7 @@ public class UsuarioServlet {
   @RequestMapping(value="/rechazarSolicitud", method = RequestMethod.POST)
   public String rechazarSolicitud(HttpServletRequest request, Model model) throws Exception  {
 	   String emisor=request.getParameter("txtNombre");
-	   Usuario usuario;
+	   Usuario usuario=null;
 	   usuario=(Usuario) request.getSession().getAttribute(usuario_conect);
 	   try {
 		   utilidades.rechazarSolicitud(new Usuario(emisor), usuario);
@@ -728,7 +729,7 @@ public class UsuarioServlet {
   
   @RequestMapping(value="/mostrarNotificaciones", method = RequestMethod.GET)
   public String mostrarNotificaciones(HttpServletRequest request, Model model) throws Exception  {
-	   Usuario usuario;
+	   Usuario usuario=null;
 	   usuario=(Usuario) request.getSession().getAttribute(usuario_conect);
 	   model.addAttribute("notificaciones", utilidades.mostrarNotificaciones(usuario));
 	   return "usuario/vistaAmigos";

@@ -138,12 +138,12 @@ public class PublicacionDAOImpl {
 		FindIterable<BsonDocument> resultado=publicaciones.find(criterio).sort(sort);
 		Iterator <BsonDocument> bucle= resultado.iterator();
 		ArrayList<Publicacion> lista= new ArrayList<Publicacion>();
-		BsonDocument aux;
-		String autor;
-		String texto;
-		String privacidad;
-		long fecha;
-		Publicacion publicacion;
+		BsonDocument aux=null;
+		String autor="";
+		String texto="";
+		String privacidad="";
+		long fecha=0;
+		Publicacion publicacion=null;
 		while(bucle.hasNext()) {
 			aux=bucle.next();
 			autor=aux.getString(author).getValue();
@@ -171,12 +171,12 @@ public class PublicacionDAOImpl {
 		FindIterable<BsonDocument> resultado=publicaciones.find(criterio).sort(sort);
 		Iterator <BsonDocument> bucle= resultado.iterator();
 		ArrayList<Publicacion> lista= new ArrayList<Publicacion>();
-		BsonDocument aux;
-		String autor;
-		String texto;
-		String privacidad;
-		long fecha;
-		Publicacion publicacion;
+		BsonDocument aux=null;
+		String autor="";
+		String texto="";
+		String privacidad="";
+		long fecha=0;
+		Publicacion publicacion=null;
 		while(bucle.hasNext()) {
 			aux=bucle.next();
 			autor=aux.getString(author).getValue();

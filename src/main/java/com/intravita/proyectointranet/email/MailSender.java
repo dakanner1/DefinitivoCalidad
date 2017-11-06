@@ -18,7 +18,10 @@ import javax.mail.internet.MimeMessage;
  */
 
 public class MailSender {
-
+	/** 
+	   *Gestiona el envío de email a usuarios apoyandose en la clase  
+	   * @see UserData
+	   */
 	static UserData userData = new UserData();
 
 	private static Session getSession() throws SQLException{
